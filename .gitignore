@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.env
+venv/
+env/
+hts/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# IDE
+.vscode/
+.idea/
+
+# Qdrant data
+qdrant_storage/
+
+# OS files
+.DS_Store
+Thumbs.db
