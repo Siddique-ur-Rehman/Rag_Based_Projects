@@ -1,13 +1,4 @@
-**Create a professional README for BioRAG-Hybrid:**
 
-```bash
-cd C:\Users\Dell\Documents\Rag_Based_Projects
-notepad BioRAG-Hybrid\README.md
-```
-
-Copy and paste this:
-
-```markdown
 # 🔬 BioRAG-Hybrid
 
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
