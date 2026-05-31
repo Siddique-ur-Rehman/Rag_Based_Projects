@@ -2,170 +2,187 @@
 
 # 🔬 BioRAG-Hybrid
 
-### *Intelligent Medical Literature Search with Hybrid Retrieval*
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Qdrant](https://img.shields.io/badge/Qdrant-Hybrid%20Search-FF4B4B?style=for-the-badge&logo=qdrant&logoColor=white)](https://qdrant.tech)
+[![Groq](https://img.shields.io/badge/Groq-LLM-FF4B4B?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com)
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.32.0-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io)
-[![Qdrant](https://img.shields.io/badge/Qdrant-1.10.0-FF4B4B?style=flat-square&logo=qdrant&logoColor=white)](https://qdrant.tech)
-[![Groq](https://img.shields.io/badge/Groq-0.5.0-FF4B4B?style=flat-square&logo=groq&logoColor=white)](https://groq.com)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+<div></div>
 
-</div>
+**Intelligent Medical Literature Search System** combining Hybrid Vector Search with Large Language Models for accurate, evidence-based answers from PubMed research papers.
 
----
+## 📊 Performance Metrics
 
-## 🎯 What Makes This Special?
+| Metric | Score |
+|--------|-------|
+| **Hit@1** | 98.0% |
+| **Hit@3** | 100% |
+| **Hit@5** | 100% |
+| **MRR** | 0.990 |
+| **F1-Score** | 0.981 |
+| **Precision** | 0.984 |
+| **Recall** | 0.980 |
 
-**BioRAG-Hybrid** isn't just another RAG system. It combines **two powerful search methods** to give you the best of both worlds:
+## 🎯 Features
 
-| Search Type | How It Works | Best For |
-|-------------|--------------|----------|
-| **Dense Vectors** | Understands meaning and context | "What causes memory loss in elderly?" |
-| **Sparse Vectors** | Matches exact keywords | "Alzheimer's amyloid plaques" |
-| **Hybrid (Both)** | Semantic understanding + keyword precision | Complex medical queries |
+- **Hybrid Search**: Combines dense (semantic) + sparse (keyword) vectors using Qdrant
+- **High Accuracy**: 98% exact match on PubMed QA benchmark
+- **Fast LLM**: Groq's Llama 3.3 70B for rapid answer generation
+- **Interactive UI**: Streamlit-based user interface with real-time feedback
+- **Comprehensive Evaluation**: Hit@k, MRR, Precision, Recall, F1 metrics
+- **Medical Focus**: Specialized for biomedical literature retrieval
 
-> 💡 **Think of it like this:** Dense search understands you want "car" when you say "vehicle". Sparse search finds exact medical terms like "amyloid-beta". Together, they're unstoppable.
-
----
-
-## 📊 Real Performance Metrics
-
-I evaluated this system on **50 real PubMed questions** using **RAGAS (RAG Assessment)** framework. Here's what I found:
-
-### Retrieval Quality (How well it finds relevant papers)
-
-| Metric | Score | What This Means |
-|--------|-------|-----------------|
-| **Hit@1** | 98% | 49 times out of 50, the perfect answer was the FIRST result |
-| **Hit@3** | 100% | Every single time, answer was within top 3 results |
-| **Hit@5** | 100% | Answer always appears in top 5 results |
-| **MRR** | 0.99 | The correct answer almost always ranks at the very top |
-
-### Answer Quality (How accurate the generated answers are)
-
-| Metric | Score | What This Means |
-|--------|-------|-----------------|
-| **Precision** | 0.984 | 98.4% of retrieved information was relevant |
-| **Recall** | 0.980 | 98% of relevant information was successfully retrieved |
-| **F1-Score** | 0.981 | Excellent balance between precision and recall |
-
-> 🏆 **Bottom Line:** This system achieves **near-perfect retrieval** on medical literature. Doctors and researchers can trust the results.
-
----
-
-## 🧠 How It Works: System Workflow
-STEP 1: USER ASKS QUESTION
-│
-▼
-STEP 2: HYBRID ENCODING
-├── Dense Encoder (all-MiniLM-L6-v2) → Semantic understanding
-└── Sparse Encoder (bm42-all-minilm-l6-v2-attentions) → Keyword matching
-│
-▼
-STEP 3: QDRANT HYBRID SEARCH
-├── Searches 500 PubMed abstracts with both vectors
-└── Combines results using RRF (Reciprocal Rank Fusion)
-│
-▼
-STEP 4: CONTEXT RETRIEVAL
-└── Extracts top 3 most relevant abstracts
-│
-▼
-STEP 5: GROQ LLM GENERATION (Llama 3.3 70B)
-├── Reads ONLY the retrieved abstracts
-├── Generates evidence-based answer
-└── If answer not in abstracts → "I don't have enough information"
-│
-▼
-STEP 6: STREAMLIT UI DISPLAY
-├── Shows generated answer
-├── Displays relevance scores
-├── Reveals source abstracts (expandable)
-└── Collects user feedback (👍/👎)
+## 🏗️ Architecture
+User Query → Hybrid Search → Context Retrieval → Groq LLM → Answer
+↓
+Dense Vectors (Semantic)
++
+Sparse Vectors (Keyword)
+↓
+Qdrant Cloud
 
 text
 
----
+## 📁 Project Structure
+BioRAG-Hybrid/
+├── streamlit_app.py # Main UI application
+├── advance_evaluation_rag.py # Evaluation metrics suite
+├── hybrid_query.py # Hybrid search engine
+├── upload_hybrid_data.py # Data ingestion pipeline
+├── create_collection.py # Qdrant collection setup
+├── load_data.py # PubMed dataset loader
+├── generate_embeddings.py # Vector generation
+├── hybrid_search_setup.py # Hybrid index configuration
+├── requirements.txt # Dependencies
+├── .gitignore # Git exclusions
+└── README.md # Documentation
 
-## 🚀 Getting Started
+text
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-```bash
-Python 3.10+          # Core language
-Qdrant Cloud Account  # Free tier works fine
-Groq API Key         # Free tier (30 requests/min)
-Step-by-Step Setup
-1. Clone the repository
+- Python 3.10 or higher
+- Qdrant Cloud account (free tier)
+- Groq API key (free tier)
 
-bash
+### Installation
+
+```bash
+# Clone the repository
 git clone https://github.com/Siddique-ur-Rehman/Rag_Based_Projects.git
 cd Rag_Based_Projects/BioRAG-Hybrid
-2. Install dependencies
 
-bash
+# Install dependencies
 pip install -r requirements.txt
-3. Set up environment variables
-
-Create a .env file:
+Environment Setup
+Create .env file:
 
 env
 QDRANT_URL=https://your-cluster.cloud.qdrant.io:6333
-QDRANT_API_KEY=your_qdrant_api_key_here
-GROQ_API_KEY=your_groq_api_key_here
-4. Run the application
-
+QDRANT_API_KEY=your_qdrant_api_key
+GROQ_API_KEY=your_groq_api_key
+Run the Application
 bash
 streamlit run streamlit_app.py
-The UI will open at http://localhost:8501
+🔧 Pipeline Steps
+Data Loading: PubMed QA dataset (1000 samples)
 
-🔧 Complete Pipeline (What Happens Behind the Scenes)
-Step	Script	What It Does
-1	load_data.py	Downloads PubMed QA dataset (1000 samples)
-2	generate_embeddings.py	Creates dense vectors using sentence-transformers
-3	create_collection.py	Sets up Qdrant collection with dense vector support
-4	upload_to_qdrant.py	Uploads 500 dense vectors to Qdrant
-5	hybrid_search_setup.py	Recreates collection with sparse vector support
-6	upload_hybrid_data.py	Uploads both dense + sparse vectors
-7	hybrid_query.py	Tests hybrid search with sample query
-8	advance_evaluation_rag.py	Runs comprehensive metrics (Hit@k, MRR, F1)
-9	streamlit_app.py	Launches interactive web interface
-📚 Dataset Details
-Source: PubMed QA (Hugging Face)
-Format: pqa_labeled subset
-Size: 500 biomedical abstracts
-Each sample contains:
+Vector Generation: Sentence Transformers (all-MiniLM-L6-v2)
 
-❓ Question (e.g., "Do mitochondria play a role in cellular remodeling?")
+Collection Setup: Qdrant hybrid collection (dense + sparse)
 
-📄 Context (PubMed abstract text)
+Data Upload: 500 biomedical abstracts with dual vectors
 
-✅ Answer (yes/no/maybe based on the paper)
+Hybrid Search: RRF fusion for optimal retrieval
 
-🧪 Running Your Own Evaluation
-bash
-# Run the comprehensive evaluation suite
+LLM Generation: Groq Llama 3.3 70B for answers
+
+Evaluation: Comprehensive metrics calculation
+
+📦 Tech Stack & Versions
+Technology	Version	Purpose
+Python	3.10+	Core language
+Qdrant Client	1.10.0	Vector database
+Sentence-Transformers	2.2.2	Dense embeddings
+Fastembed	0.2.0	Sparse embeddings
+Groq	0.5.0	LLM inference
+Streamlit	1.32.0	Web UI
+Datasets	2.18.0	PubMed QA data
+Ragas	0.1.5	RAG evaluation
+Scikit-learn	1.3.0	Metrics calculation
+NumPy	1.24.3	Vector operations
+🧪 Evaluation Details
+Tested on 50 PubMed QA samples:
+
+python
+# Run evaluation
 python advance_evaluation_rag.py
+Results interpretation:
 
-# Sample output:
-# ============================================================
-# RAG SYSTEM EVALUATION METRICS
-# ============================================================
-# Exact Match Accuracy: 98.0%
-# Hit@1: 49/50 = 98.0%
-# Hit@3: 50/50 = 100.0%
-# Hit@5: 50/50 = 100.0%
-# MRR (Mean Reciprocal Rank): 0.990
-# Precision (weighted): 0.984
-# Recall (weighted): 0.980
-# F1-Score (weighted): 0.981
-# ============================================================
-💬 Example Interaction
-User asks: "What causes Alzheimer's disease?"
+Hit@k: Correct answer in top-k retrieved results
 
-System responds:
+MRR: Mean Reciprocal Rank (higher = better ranking)
 
-Based on the retrieved medical literature, Alzheimer's disease is associated with hippocampal atrophy (HCA) in the brain. The abstract indicates that patients with Alzheimer's show progressive cognitive decline correlated with structural brain changes.
+F1: Harmonic mean of precision and recall
+
+💡 Example Queries
+"What causes Alzheimer's disease?"
+
+"What are the risk factors for heart disease?"
+
+"What are effective treatments for diabetes?"
+
+"Do mitochondria play a role in cellular remodeling?"
+
+🔄 System Workflow
+
+
+
+
+
+
+
+
+📈 Performance Optimization
+Caching: Model caching with @st.cache_resource
+
+Batching: Efficient vector generation for 500 samples
+
+Hybrid Search: RRF fusion for optimal ranking
+
+Async Processing: Progress bars for user feedback
+
+🤝 Contributing
+Fork the repository
+
+Create feature branch (git checkout -b feature/amazing)
+
+Commit changes (git commit -m 'Add amazing feature')
+
+Push branch (git push origin feature/amazing)
+
+Open Pull Request
+
+📝 License
+MIT License - feel free to use, modify, and distribute.
+
+🙏 Acknowledgments
+Qdrant for hybrid search capabilities
+
+Groq for fast LLM inference
+
+PubMed for the biomedical dataset
+
+Hugging Face for sentence-transformers
+
+📧 Contact
+Author: Siddique-ur-Rehman
+GitHub: @Siddique-ur-Rehman
+Project Link: Rag_Based_Projects/BioRAG-Hybrid
+
+correlated with structural brain changes.
 
 Along with:
 
