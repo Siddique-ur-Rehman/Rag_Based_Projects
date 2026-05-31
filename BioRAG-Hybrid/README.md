@@ -6,7 +6,8 @@
 [![Groq](https://img.shields.io/badge/Groq-LLM-FF4B4B?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 
-**Intelligent Medical Literature Search System** combining Hybrid Vector Search with Large Language Models for accurate, evidence-based answers from PubMed research papers.
+**Intelligent Medical Literature Search System** BioRAG-Hybrid is a medical QA system that retrieves relevant PubMed papers using hybrid search (combining dense and sparse vectors) and generates accurate answers with Groq AI.
+It is evaluated automatically with RAGAS, a framework that measures retrieval quality, answer relevance, and factual consistency — without manual scoring.
 
 ## 📊 Performance Metrics
 
