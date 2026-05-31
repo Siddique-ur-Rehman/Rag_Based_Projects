@@ -187,18 +187,6 @@ MIT License - feel free to use, modify, and distribute.
 
 ---
 
-<div align="center">
-Made with ❤️ for Medical AI Research
-</div>
-```
 
-Save the file (Ctrl+S), close notepad.
 
-Now push to GitHub:
 
-```bash
-cd C:\Users\Dell\Documents\Rag_Based_Projects
-git add BioRAG-Hybrid/README.md
-git commit -m "Add comprehensive README with versions, metrics, and documentation"
-git push origin main
-```
