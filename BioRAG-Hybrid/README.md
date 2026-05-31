@@ -54,54 +54,34 @@ I evaluated this system on **50 real PubMed questions** using **RAGAS (RAG Asses
 ---
 
 ## 🧠 How It Works: System Workflow
-┌─────────────────────────────────────────────────────────────────┐
-│ USER ASKS QUESTION │
-│ "What causes Alzheimer's?" │
-└─────────────────────────────────────────────────────────────────┘
+STEP 1: USER ASKS QUESTION
 │
 ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 1: HYBRID ENCODING │
-├─────────────────────────────┬───────────────────────────────────┤
-│ DENSE ENCODER (Semantic) │ SPARSE ENCODER (Keyword) │
-│ all-MiniLM-L6-v2 │ bm42-all-minilm-l6-v2-attentions │
-│ "understands meaning" │ "matches exact medical terms" │
-└─────────────────────────────┴───────────────────────────────────┘
+STEP 2: HYBRID ENCODING
+├── Dense Encoder (all-MiniLM-L6-v2) → Semantic understanding
+└── Sparse Encoder (bm42-all-minilm-l6-v2-attentions) → Keyword matching
 │
 ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 2: QDRANT HYBRID SEARCH │
-│ │
-│ Both vectors search 500 PubMed abstracts SIMULTANEOUSLY │
-│ Results combined using RRF (Reciprocal Rank Fusion) │
-└─────────────────────────────────────────────────────────────────┘
+STEP 3: QDRANT HYBRID SEARCH
+├── Searches 500 PubMed abstracts with both vectors
+└── Combines results using RRF (Reciprocal Rank Fusion)
 │
 ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 3: CONTEXT RETRIEVAL │
-│ │
-│ Top 3 most relevant abstracts are extracted │
-│ Each contains: abstract text + pre-annotated answer │
-└─────────────────────────────────────────────────────────────────┘
+STEP 4: CONTEXT RETRIEVAL
+└── Extracts top 3 most relevant abstracts
 │
 ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 4: GROQ LLM GENERATION │
-│ │
-│ Llama 3.3 70B model reads ONLY the retrieved abstracts │
-│ Generates a clear, evidence-based answer │
-│ ⚠️ If answer not in abstracts → Says "I don't have enough info"│
-└─────────────────────────────────────────────────────────────────┘
+STEP 5: GROQ LLM GENERATION (Llama 3.3 70B)
+├── Reads ONLY the retrieved abstracts
+├── Generates evidence-based answer
+└── If answer not in abstracts → "I don't have enough information"
 │
 ▼
-┌─────────────────────────────────────────────────────────────────┐
-│ STEP 5: STREAMLIT UI DISPLAY │
-│ │
-│ • Shows generated answer │
-│ • Displays relevance scores │
-│ • Reveals source abstracts (expandable) │
-│ • Collects user feedback │
-└─────────────────────────────────────────────────────────────────┘
+STEP 6: STREAMLIT UI DISPLAY
+├── Shows generated answer
+├── Displays relevance scores
+├── Reveals source abstracts (expandable)
+└── Collects user feedback (👍/👎)
 
 text
 
@@ -251,4 +231,3 @@ Author: Siddique-ur-Rehman
 GitHub: @Siddique-ur-Rehman
 Project Repository: Rag_Based_Projects
 Direct Link: BioRAG-Hybrid
-
